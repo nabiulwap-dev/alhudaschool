@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AL-HUDA Admission Form</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#16a34a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AL-HUDA Form">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2316a34a' width='100' height='100' rx='20'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>📝</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- HTML2Canvas Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkFMIEhVREEgQWRtaXNzaW9uIEZvcm0iLAogICJzaG9ydF9uYW1lIjogIkFMLUhVREEiLAogICJkZXNjcmlwdGlvbiI6ICJBZG1pc3Npb24gRm9ybSBBcHAgZm9yIEFMLUhVREEgSXNsYW1pYyBFZHVjYXRpb25hbCBTb2NpZXR5IiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxNmE0NGEiLAogICJ0aGVtZV9jb2xvciI6ICIjMTZhMzRhIiwKICAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48cmVjdCBmaWxsPSclMjMxNmE0NGEnIHdpZHRoPScxMDAnIGhlaWdodD0nMTAwJyByeD0nMjAnLz48dGV4dCB4PSc1MCcgeT0nNjUnIGZvbnQtc2l6ZT0nNDAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9J3doaXRlJz7wn5KDPC90ZXh0Pjwvc3ZnPiIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdCn0=">
+
+    <style>
+        :root {
+            --primary-color: #1e40af;
+            --secondary-color: #3b82f6;
+            --accent-color: #10b981;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--bg-gradient);
+            min-height: 100vh;
+        }
+        
+        body.theme-blue { --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        body.theme-green { --bg-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        body.theme-orange { --bg-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        body.theme-dark { --bg-gradient: linear-gradient(135deg, #232526 0%, #414345 100%); }
+        
+        body.font-small { font-size: 14px; }
+        body.font-medium { font-size: 16px; }
+        body.font-large { font-size: 18px; }
+        
+        /* A4 Page Styling - Perfect Fit */
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            max-height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 8mm 12mm;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            color: black;
+            position: relative;
+            border-radius: 0;
+            box-sizing: border-box;
+            font-size: 11px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Table Cell Borders - Clear Separate Borders */
+        .form-table {
+            width: 100%;
+            border-spacing: 0;
+        }
+        
+        .form-table .table-row {
+            display: grid;
+        }
+        
+        .form-table .table-label {
+            background: #f9fafb;
+            padding: 8px 10px;
+            font-weight: 700;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid #374151;
+            border-bottom: 1px solid #374151;
+            font-size: 11px;
+        }
+        
+        .form-table .table-label i {
+            color: #4b5563;
+        }
+        
+        .form-table .table-value {
+            padding: 8px 10px;
+            background: #ffffff;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #374151;
+            border-left: none;
+            border-bottom: 1px solid #374151;
+            font-size: 11px;
+            color: #1f2937;
+        }
+        
+        .form-table .table-row:last-child .table-label,
+        .form-table .table-row:last-child .table-value {
+            border-bottom: 2px solid #374151;
+        }
+        
+        .form-table .table-value-border {
+            border-right: 2px solid #374151;
+        }
+        
+        .form-table .table-label-middle {
+            border-left: none;
+        }
+        
+        /* Form Input Styling */
+        .form-input {
+            width: 100%;
+            border: 2px solid #e2e8f0;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            font-size: 15px;
+            transition: all 0.3s ease;
+            margin-top: 6px;
+        }
+        
+        .form-input:hover {
+            border-color: #cbd5e1;
+            background: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+        }
+        
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 2px;
+        }
+        
+        .form-label i {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-size: 11px;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        /* Input Section Card */
+        .input-section {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            padding: 8px 12px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+        }
+        
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #667eea;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea 0%, transparent 100%);
+            border-radius: 2px;
+        }
+
+        /* Result Image Styling */
+        #resultImage {
+            width: 100%;
+            border: 3px solid #4ade80;
+            border-radius: 12px;
+            display: none;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Form Table Responsive */
+        @media screen and (max-width: 768px) {
+            .a4-page {
+                width: 100%;
+                min-height: auto;
+                max-height: none;
+                padding: 15px;
+            }
+        }
+
+        /* Header Bar */
+        .header-bar {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Card Design */
+        .glass-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            min-width: 200px;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        
+        .dropdown-menu.show { display: block; }
+        
+        .dropdown-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dropdown-item:hover { background: #f3f4f6; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal.show { display: flex; }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+
+        /* Records List */
+        .record-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+        
+        .record-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Input Focus */
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Print Styling - Perfect A4 Fit */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            body { 
+                background: white !important; 
+                padding: 0 !important;
+                margin: 0 !important;
+                visibility: visible !important;
+            }
+            
+            .no-print { display: none !important; }
+            
+            #previewSection { 
+                display: flex !important;
+                flex-direction: column !important;
+                visibility: visible !important;
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 6mm 10mm !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                max-height: 297mm !important;
+                border-radius: 0 !important;
+                page-break-inside: avoid !important;
+                background: white !important;
+                overflow: hidden !important;
+            }
+            
+            #previewSection * {
+                visibility: visible !important;
+            }
+            
+            .header-bar { display: none !important; }
+            .fab { display: none !important; }
+            #inputPanel { display: none !important; }
+            #saveInstruction { display: none !important; }
+            #resultImage { display: none !important; }
+            
+            /* Ensure table borders print correctly */
+            .form-table .table-label {
+                background: #e2e8f0 !important;
+                color: #1e293b !important;
+                border: 2px solid #374151 !important;
+            }
+            
+            .form-table .table-value {
+                background: #ffffff !important;
+                border: 2px solid #374151 !important;
+            }
+            
+            .form-table .table-value-border {
+                border-right: 2px solid #374151 !important;
+            }
+            
+            /* Guardian copy table */
+            table {
+                border-collapse: collapse !important;
+            }
+            
+            table td {
+                border: 2px solid #374151 !important;
+            }
+            
+            /* Grid display fix */
+            .grid {
+                display: grid !important;
+            }
+            
+            /* Photo print */
+            #photoPreview {
+                visibility: visible !important;
+                display: block !important;
+            }
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        
+        .fab:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="font-medium theme-blue">
+
+    <!-- HEADER BAR -->
+    <div class="header-bar sticky top-0 z-50 no-print">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
+                    <i class="fas fa-graduation-cap text-green-600 text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-white font-extrabold text-lg leading-tight" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4); letter-spacing: 1px;">AL-HUDA ISLAMIC EDUCATIONAL SOCIETY</h1>
+                </div>
+            </div>
+            
+            <!-- Dropdown Menu Button -->
+            <div class="relative">
+                <button onclick="toggleDropdown()" class="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition">
+                    <i class="fas fa-bars text-white text-lg"></i>
+                </button>
+                
+                <div id="dropdownMenu" class="dropdown-menu">
+                    <div class="dropdown-item" onclick="openRecordsModal()">
+                        <i class="fas fa-folder text-blue-500"></i>
+                        <span>Saved Records</span>
+                    </div>
+                    <div class="dropdown-item" onclick="openSettingsModal()">
+                        <i class="fas fa-cog text-gray-500"></i>
+                        <span>Settings</span>
+                    </div>
+                    <div class="dropdown-item" onclick="openAboutModal()">
+                        <i class="fas fa-info-circle text-green-500"></i>
+                        <span>About</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="p-4 md:p-6 pb-24">
+
+        <!-- CONTROL PANEL (INPUTS) -->
+        <div id="inputPanel" class="max-w-xl mx-auto glass-card p-6 mb-6 no-print overflow-hidden">
+            <!-- Header with Animation -->
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg transform hover:scale-105 transition-transform">
+                    <i class="fas fa-mosque text-white text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Admission Form</h2>
+                <p class="text-gray-500 text-sm mt-1">Fill in the student details below</p>
+            </div>
+            
+            <!-- School Info (Fixed - Read Only) -->
+            <div class="input-section bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-500 shadow-md">
+                <div class="text-center py-4">
+                    <h3 class="text-2xl font-black text-green-800 tracking-wide" style="font-family: 'Poppins', sans-serif; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
+                        AL-HUDA ISLAMIC EDUCATIONAL SOCIETY
+                    </h3>
+                    <div class="w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-500 mx-auto mt-2 rounded-full"></div>
+                    <p class="text-sm text-green-700 font-semibold mt-2">Nursery TO CLASS - IV</p>
+                    <p class="text-xs text-gray-600 mt-1">Madanpur (Play Ground), Madhyamgram, North 24 Parganas, Kolkata - 700128</p>
+                </div>
+                <input type="hidden" id="school" value="AL - HUDA ISLAMIC EDUCATIONAL SOCIETY">
+            </div>
+
+            <!-- Student Info Section -->
+            <div class="input-section">
+                <div class="section-title"><i class="fas fa-user"></i> Student Information</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-hashtag bg-gray-100 text-gray-600"></i> Form No.
+                        </label>
+                        <input type="text" id="formNo" placeholder="e.g. ADM-001" class="form-input" oninput="update()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-calendar bg-orange-100 text-orange-600"></i> Form Date
+                        </label>
+                        <input type="date" id="formDate" class="form-input" oninput="update()">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-user bg-green-100 text-green-600"></i> Student's Name
+                        </label>
+                        <input type="text" id="name" placeholder="Enter full name" class="form-input" oninput="update()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-birthday-cake bg-pink-100 text-pink-600"></i> Date of Birth
+                        </label>
+                        <input type="date" id="dob" class="form-input" oninput="update()">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-graduation-cap bg-purple-100 text-purple-600"></i> Applied for Class
+                        </label>
+                        <select id="cls" class="form-input" onchange="update()">
+                            <option>Nursery</option>
+                            <option>LKG</option>
+                            <option>UKG</option>
+                            <option>Class 1</option>
+                            <option>Class 2</option>
+                            <option>Class 3</option>
+                            <option>Class 4</option>
+                            <option>Class 5</option>
+                            <option>Class 6</option>
+                            <option>Class 7</option>
+                            <option>Class 8</option>
+                            <option>Class 9</option>
+                            <option>Class 10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group mt-4">
+                    <label class="form-label">
+                        <i class="fas fa-school bg-indigo-100 text-indigo-600"></i> Previous School
+                    </label>
+                    <input type="text" id="prevSchool" placeholder="Enter previous school name" class="form-input" oninput="update()">
+                </div>
+            </div>
+
+            <!-- Family Info Section -->
+            <div class="input-section">
+                <div class="section-title"><i class="fas fa-users"></i> Family Information</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-male bg-blue-100 text-blue-600"></i> Father's Name
+                        </label>
+                        <input type="text" id="father" placeholder="Enter father's name" class="form-input" oninput="update()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-female bg-pink-100 text-pink-600"></i> Mother's Name
+                        </label>
+                        <input type="text" id="mother" placeholder="Enter mother's name" class="form-input" oninput="update()">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-user-shield bg-purple-100 text-purple-600"></i> Guardian's Name
+                        </label>
+                        <input type="text" id="guardian" placeholder="Enter guardian's name" class="form-input" oninput="update()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-phone-alt bg-teal-100 text-teal-600"></i> Mobile No.
+                        </label>
+                        <input type="tel" id="mobile" placeholder="Enter mobile number" class="form-input" oninput="update()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Address & Other Info Section -->
+            <div class="input-section">
+                <div class="section-title"><i class="fas fa-info-circle"></i> Additional Information</div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-map-marker-alt bg-red-100 text-red-600"></i> Address
+                    </label>
+                    <textarea id="addr" rows="2" placeholder="Enter complete address" class="form-input" oninput="update()"></textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-pray bg-yellow-100 text-yellow-700"></i> Religion
+                        </label>
+                        <select id="religion" class="form-input" onchange="update()">
+                            <option>Hindu</option>
+                            <option>Muslim</option>
+                            <option>Christian</option>
+                            <option>Sikh</option>
+                            <option>Buddhist</option>
+                            <option>Jain</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-users bg-green-100 text-green-600"></i> Caste
+                        </label>
+                        <select id="caste" class="form-input" onchange="update()">
+                            <option>General</option>
+                            <option>OBC</option>
+                            <option>SC</option>
+                            <option>ST</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group mt-4">
+                    <label class="form-label">
+                        <i class="fas fa-id-card bg-blue-100 text-blue-700"></i> Aadhar No.
+                    </label>
+                    <input type="text" id="aadhar" placeholder="XXXX XXXX XXXX" class="form-input" oninput="update()">
+                </div>
+            </div>
+
+            <!-- Photo Upload Section -->
+            <div class="input-section">
+                <div class="section-title"><i class="fas fa-camera"></i> Photo Upload</div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-image bg-indigo-100 text-indigo-600"></i> Passport Size Photo
+                    </label>
+                    <div class="mt-2 border-2 border-dashed border-gray-300 rounded-xl p-4 text-center hover:border-purple-400 transition-colors cursor-pointer" onclick="document.getElementById('photoInput').click()">
+                        <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                        <p class="text-sm text-gray-500">Click to upload or drag & drop</p>
+                        <p class="text-xs text-gray-400 mt-1">JPG, PNG (Max 2MB)</p>
+                        <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="handlePhoto(this)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-4 space-y-3">
+                <button onclick="saveAndConvert()" class="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                    <i class="fas fa-magic"></i> Save & Generate Image
+                </button>
+                <button onclick="printForm()" class="w-full bg-gradient-to-r from-gray-700 to-gray-900 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                    <i class="fas fa-print"></i> Print / Save PDF
+                </button>
+                <button onclick="resetForm()" class="w-full py-2 text-red-500 text-sm flex items-center justify-center gap-2 hover:text-red-600 transition-colors">
+                    <i class="fas fa-trash-alt"></i> Clear All Data
+                </button>
+            </div>
+        </div>
+
+        <!-- INSTRUCTION BOX -->
+        <div id="saveInstruction" class="max-w-xl mx-auto bg-green-50 border-2 border-green-400 text-green-700 p-5 mb-4 hidden no-print rounded-xl">
+            <div class="flex items-center gap-3 mb-2">
+                <i class="fas fa-check-circle text-2xl text-green-500"></i>
+                <p class="font-bold text-lg">Success!</p>
+            </div>
+            <p>Your form is displayed as an image below. To save:</p>
+            <ul class="list-disc ml-5 text-sm mt-2 space-y-1">
+                <li>Long press on the image.</li>
+                <li>Select <b>"Save Image"</b> or <b>"Download Image"</b> from the menu.</li>
+            </ul>
+            <button onclick="editAgain()" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fas fa-edit"></i> Edit Again
+            </button>
+        </div>
+
+        <!-- PREVIEW AREA -->
+        <div class="flex justify-center pb-10">
+            <div id="previewSection" class="a4-page">
+                
+                <!-- ============ MAIN COPY ============ -->
+                <div class="flex-1">
+                    
+                    <!-- Header with Border -->
+                    <div class="border-2 border-green-600 rounded-lg p-4 mb-3 text-center bg-white">
+                        <!-- School Name - Big & Stylish -->
+                        <h1 style="font-size: 24px; font-weight: 800; color: #166534; font-family: 'Poppins', sans-serif; letter-spacing: 1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
+                            AL-HUDA ISLAMIC EDUCATIONAL SOCIETY
+                        </h1>
+                        
+                        <div style="width: 120px; height: 3px; background: linear-gradient(90deg, #22c55e, #10b981); margin: 8px auto; border-radius: 2px;"></div>
+                        
+                        <p class="text-sm text-green-700 font-semibold mt-2">Nursery TO CLASS - IV</p>
+                        <p class="text-xs text-gray-600 mt-1">Madanpur (Play Ground), Madhyamgram, North 24 Parganas, Kolkata - 700128</p>
+                        
+                        <div class="mt-2">
+                            <span class="bg-green-700 text-white text-xs px-6 py-1.5 rounded-full font-bold tracking-wide inline-block">
+                                ADMISSION FORM
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Form Info & Photo Row -->
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="space-y-2">
+                            <div class="border-2 border-gray-400 rounded px-3 py-1 inline-block">
+                                <span class="text-gray-600 text-sm">Form No:</span> 
+                                <span class="font-bold text-gray-900 text-sm font-mono" id="p_formNo"></span>
+                            </div>
+                            <div class="border-2 border-gray-400 rounded px-3 py-1 inline-block ml-2">
+                                <span class="text-gray-600 text-sm">Date:</span> 
+                                <span class="font-bold text-gray-900 text-sm" id="p_formDate"></span>
+                            </div>
+                        </div>
+                        <div id="photoBox" class="w-[90px] h-[110px] border-2 border-gray-600 bg-gray-100 flex items-center justify-center text-xs text-center text-gray-500 overflow-hidden">
+                            <span id="photoPlaceholder" class="text-gray-400">
+                                <i class="fas fa-user text-3xl mb-2 block text-gray-300"></i>
+                                Passport<br>Photo
+                            </span>
+                            <img id="photoPreview" src="" alt="Photo" class="w-full h-full object-cover hidden">
+                        </div>
+                    </div>
+
+                    <!-- Main Information Table with Clear Separate Borders -->
+                    <div class="form-table mb-4">
+                        <!-- Row 1 - Student Name -->
+                        <div class="table-row grid-cols-12">
+                            <div class="col-span-4 table-label">
+                                <i class="fas fa-user"></i> Student's Name
+                            </div>
+                            <div class="col-span-8 table-value font-bold" id="p_name"></div>
+                        </div>
+                        <!-- Row 2 - Father -->
+                        <div class="table-row grid-cols-12">
+                            <div class="col-span-4 table-label">
+                                <i class="fas fa-male"></i> Father's Name
+                            </div>
+                            <div class="col-span-8 table-value" id="p_father"></div>
+                        </div>
+                        <!-- Row 3 - Mother -->
+                        <div class="table-row grid-cols-12">
+                            <div class="col-span-4 table-label">
+                                <i class="fas fa-female"></i> Mother's Name
+                            </div>
+                            <div class="col-span-8 table-value" id="p_mother"></div>
+                        </div>
+                        <!-- Row 4 - Guardian -->
+                        <div class="table-row grid-cols-12">
+                            <div class="col-span-4 table-label">
+                                <i class="fas fa-user-shield"></i> Guardian's Name
+                            </div>
+                            <div class="col-span-8 table-value" id="p_guardian"></div>
+                        </div>
+                        <!-- Row 5 - DOB & Class (4 cells) -->
+                        <div class="table-row grid-cols-12">
+                            <div class="col-span-3 table-label">
+                                <i class="fas fa-calendar"></i> Date of Birth
+                            </div>
+                            <div class="col-span-3 table-value table-value-border" id="p_dob"></div>
+                            <div class="col-span-3 table-label table-label-middle">
+                                <i class="fas fa-graduation-cap"></i> Class Applied
+                            </div>
+                            <div class="col-span-3 table-value font-bold" style="color: #1e40af;" id="p_cls"></div>
+                        </div>
+                        <!-- Row 6 - Previous School -->
+                        <div class="table-row grid-cols-12">
+                            <div class="col-span-4 table-label">
+                                <i class="fas fa-school"></i> Previous School
+                            </div>
+                            <div class="col-span-8 table-value" id="p_prevSchool"></div>
+                        </div>
+                        <!-- Row 7 - Mobile -->
+                        <div class="table-row grid-cols-12">
+                            <div class="col-span-4 table-label">
+                                <i class="fas fa-phone"></i> Mobile No.
+                            </div>
+                            <div class="col-span-8 table-value font-mono" id="p_mobile"></div>
+                        </div>
+                        <!-- Row 8 - Address -->
+                        <div class="table-row grid-cols-12">
+                            <div class="col-span-4 table-label">
+                                <i class="fas fa-map-marker-alt"></i> Address
+                            </div>
+                            <div class="col-span-8 table-value" style="min-height: 45px;" id="p_addr"></div>
+                        </div>
+                        <!-- Row 9 - Religion & Caste (4 cells) -->
+                        <div class="table-row grid-cols-12">
+                            <div class="col-span-3 table-label">
+                                <i class="fas fa-pray"></i> Religion
+                            </div>
+                            <div class="col-span-3 table-value table-value-border" id="p_religion"></div>
+                            <div class="col-span-3 table-label table-label-middle">
+                                <i class="fas fa-users"></i> Caste
+                            </div>
+                            <div class="col-span-3 table-value" id="p_caste"></div>
+                        </div>
+                        <!-- Row 10 - Aadhar -->
+                        <div class="table-row grid-cols-12">
+                            <div class="col-span-4 table-label">
+                                <i class="fas fa-id-card"></i> Aadhar No.
+                            </div>
+                            <div class="col-span-8 table-value font-mono" style="letter-spacing: 2px;" id="p_aadhar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Declaration Box -->
+                    <div class="border border-gray-400 rounded p-2 bg-white mb-3">
+                        <p class="text-xs text-gray-700">
+                            <strong>Declaration:</strong> I hereby declare that the information given above is true and correct. Any false information may result in cancellation of admission.
+                        </p>
+                    </div>
+
+                    <!-- Signatures Section -->
+                    <div class="flex justify-between items-end px-4 mb-2">
+                        <div class="text-center">
+                            <div class="w-28 border-b border-gray-800 mb-1"></div>
+                            <p class="text-xs font-bold text-gray-700">Guardian's Signature</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-28 border-b border-gray-800 mb-1"></div>
+                            <p class="text-xs font-bold text-gray-700">Principal's Signature</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tear Line -->
+                <div class="relative my-2">
+                    <hr class="border-t border-dashed border-gray-400">
+                    <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-xs text-gray-400">
+                        ✂ Cut Here
+                    </span>
+                </div>
+
+                <!-- ============ GUARDIAN COPY ============ -->
+                <div style="border: 2px solid #374151; border-radius: 6px; padding: 8px; background: white;">
+                    
+                    <!-- Guardian Copy Header - Compact -->
+                    <div style="border-bottom: 1px solid #374151; padding-bottom: 6px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h1 style="font-size: 12px; font-weight: 700; color: #1f2937;">
+                                AL - HUDA ISLAMIC EDUCATIONAL SOCIETY
+                            </h1>
+                            <p style="font-size: 9px; color: #6b7280;">Madanpur, Madhyamgram, Kolkata - 700128</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="background: #374151; color: white; font-size: 8px; padding: 3px 10px; border-radius: 10px; font-weight: bold;">GUARDIAN COPY</span>
+                            <p style="font-size: 9px; margin-top: 4px;">Form: <b id="p_formNo_g"></b> | Date: <b id="p_formDate_g"></b></p>
+                        </div>
+                    </div>
+
+                    <!-- Guardian Copy Table - Compact -->
+                    <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                        <tr>
+                            <td style="background: #f3f4f6; padding: 5px 8px; font-weight: bold; border: 1px solid #374151; width: 12%;">Name</td>
+                            <td style="background: white; padding: 5px 8px; font-weight: 600; border: 1px solid #374151; width: 38%;" id="p_name_g"></td>
+                            <td style="background: #f3f4f6; padding: 5px 8px; font-weight: bold; border: 1px solid #374151; width: 12%;">Class</td>
+                            <td style="background: white; padding: 5px 8px; font-weight: bold; border: 1px solid #374151; width: 38%;" id="p_cls_g"></td>
+                        </tr>
+                        <tr>
+                            <td style="background: #f3f4f6; padding: 5px 8px; font-weight: bold; border: 1px solid #374151;">Father</td>
+                            <td style="background: white; padding: 5px 8px; border: 1px solid #374151;" id="p_father_g"></td>
+                            <td style="background: #f3f4f6; padding: 5px 8px; font-weight: bold; border: 1px solid #374151;">Mobile</td>
+                            <td style="background: white; padding: 5px 8px; font-family: monospace; border: 1px solid #374151;" id="p_mobile_g"></td>
+                        </tr>
+                    </table>
+
+                    <!-- Guardian Copy Signatures - Compact -->
+                    <div style="margin-top: 8px; display: flex; justify-content: space-between; padding: 0 5px;">
+                        <div style="text-align: center;">
+                            <div style="width: 80px; border-top: 1px solid #374151;"></div>
+                            <p style="font-size: 8px; margin-top: 2px; font-weight: bold; color: #374151;">Guardian's Sign</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="width: 80px; border-top: 1px solid #374151;"></div>
+                            <p style="font-size: 8px; margin-top: 2px; font-weight: bold; color: #374151;">Principal's Sign</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="width: 80px; border-top: 1px solid #374151;"></div>
+                            <p style="font-size: 8px; margin-top: 2px; font-weight: bold; color: #374151;">Office Seal</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footer -->
+                <div class="mt-1 text-center text-xs text-gray-400">
+                    This form is digitally generated.
+                </div>
+            </div>
+
+            <img id="resultImage" alt="Generated Form" class="no-print">
+        </div>
+    </div>
+
+    <!-- FLOATING ACTION BUTTON (Records) -->
+    <div class="fab no-print" onclick="openRecordsModal()">
+        <i class="fas fa-folder-open text-xl"></i>
+    </div>
+
+    <!-- ============ MODALS ============ -->
+    
+    <!-- Records Modal -->
+    <div id="recordsModal" class="modal">
+        <div class="modal-content">
+            <div class="p-5 border-b flex justify-between items-center bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-t-2xl">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <i class="fas fa-folder"></i> Saved Records
+                </h3>
+                <button onclick="closeModal('recordsModal')" class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-5">
+                <div id="recordsList" class="max-h-96 overflow-y-auto">
+                    <!-- Records will be loaded here -->
+                </div>
+                <p id="noRecords" class="text-center text-gray-500 py-10 hidden">
+                    <i class="fas fa-inbox text-4xl mb-3 block"></i>
+                    No records saved yet
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="p-5 border-b flex justify-between items-center bg-gradient-to-r from-gray-600 to-gray-800 text-white rounded-t-2xl">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <i class="fas fa-cog"></i> Settings
+                </h3>
+                <button onclick="closeModal('settingsModal')" class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-5 space-y-6">
+                <!-- Font Size -->
+                <div>
+                    <label class="font-bold text-gray-700 flex items-center gap-2 mb-3">
+                        <i class="fas fa-text-height text-blue-500"></i> Font Size
+                    </label>
+                    <div class="flex gap-3">
+                        <button onclick="setFontSize('small')" class="flex-1 py-2 px-4 border-2 rounded-lg font-medium hover:border-blue-500 transition" id="fontSmall">Small</button>
+                        <button onclick="setFontSize('medium')" class="flex-1 py-2 px-4 border-2 rounded-lg font-medium hover:border-blue-500 transition" id="fontMedium">Medium</button>
+                        <button onclick="setFontSize('large')" class="flex-1 py-2 px-4 border-2 rounded-lg font-medium hover:border-blue-500 transition" id="fontLarge">Large</button>
+                    </div>
+                </div>
+                
+                <!-- Theme -->
+                <div>
+                    <label class="font-bold text-gray-700 flex items-center gap-2 mb-3">
+                        <i class="fas fa-palette text-purple-500"></i> Theme
+                    </label>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button onclick="setTheme('blue')" class="h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 border-4 border-transparent hover:border-gray-400 transition" id="themeBlue" title="Blue"></button>
+                        <button onclick="setTheme('green')" class="h-12 rounded-xl bg-gradient-to-r from-green-400 to-teal-500 border-4 border-transparent hover:border-gray-400 transition" id="themeGreen" title="Green"></button>
+                        <button onclick="setTheme('orange')" class="h-12 rounded-xl bg-gradient-to-r from-pink-400 to-red-500 border-4 border-transparent hover:border-gray-400 transition" id="themeOrange" title="Pink"></button>
+                        <button onclick="setTheme('dark')" class="h-12 rounded-xl bg-gradient-to-r from-gray-700 to-gray-900 border-4 border-transparent hover:border-gray-400 transition" id="themeDark" title="Dark"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <div class="p-5 border-b flex justify-between items-center bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-t-2xl">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <i class="fas fa-info-circle"></i> About
+                </h3>
+                <button onclick="closeModal('aboutModal')" class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6 text-center">
+                <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-graduation-cap text-white text-3xl"></i>
+                </div>
+                <h4 class="text-2xl font-bold text-gray-800 mb-2">Admission Form App</h4>
+                <p class="text-gray-500 mb-4">Version 2.0</p>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    This app helps you create admission forms for schools easily. 
+                    Fill in the details, add a photo, and print or save.
+                </p>
+                <div class="mt-6 pt-4 border-t text-xs text-gray-400">
+                    Made with ❤️
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA HANDLING ---
+        const ids = ['school', 'name', 'formDate', 'formNo', 'father', 'mother', 'guardian', 'mobile', 'addr', 'dob', 'cls', 'prevSchool', 'religion', 'caste', 'aadhar'];
+        let currentPhotoData = null;
+
+        window.onload = () => {
+            const saved = JSON.parse(localStorage.getItem('formDataV4')) || {};
+            ids.forEach(id => {
+                if(saved[id]) document.getElementById(id).value = saved[id];
+            });
+            
+            // Set today's date if formDate is empty
+            if(!document.getElementById('formDate').value) {
+                document.getElementById('formDate').value = new Date().toISOString().split('T')[0];
+            }
+            
+            // Load settings
+            loadSettings();
+            update();
+        };
+
+        function update() {
+            const data = {};
+            ids.forEach(id => {
+                const val = document.getElementById(id).value;
+                const pEl = document.getElementById('p_' + id);
+                if(pEl) pEl.innerText = val;
+                const pElG = document.getElementById('p_' + id + '_g');
+                if(pElG) pElG.innerText = val;
+                data[id] = val;
+            });
+            
+            // Update school name in guardian copy
+            const schoolVal = document.getElementById('school').value;
+            const schoolG = document.getElementById('p_school_g');
+            if(schoolG) schoolG.innerText = schoolVal;
+            
+            localStorage.setItem('formDataV4', JSON.stringify(data));
+        }
+
+        // --- SAVE TO RECORDS ---
+        function saveToRecords() {
+            const name = document.getElementById('name').value;
+            if(!name.trim()) {
+                alert('Please enter student\'s name');
+                return false;
+            }
+            
+            const data = {};
+            ids.forEach(id => {
+                data[id] = document.getElementById(id).value;
+            });
+            data.photo = currentPhotoData;
+            data.id = Date.now();
+            data.createdAt = new Date().toLocaleDateString('en-IN');
+            
+            let records = JSON.parse(localStorage.getItem('admissionRecords')) || [];
+            records.unshift(data);
+            localStorage.setItem('admissionRecords', JSON.stringify(records));
+            
+            return true;
+        }
+
+        // --- SAVE AND CONVERT ---
+        async function saveAndConvert() {
+            if(!saveToRecords()) return;
+            
+            const btn = document.querySelector('button[onclick="saveAndConvert()"]');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            btn.disabled = true;
+
+            const element = document.getElementById('previewSection');
+            const resultImg = document.getElementById('resultImage');
+            const instruction = document.getElementById('saveInstruction');
+            const inputPanel = document.getElementById('inputPanel');
+
+            try {
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: "#ffffff"
+                });
+
+                resultImg.src = canvas.toDataURL('image/jpeg', 0.9);
+                resultImg.style.display = 'block';
+                element.style.display = 'none';
+                inputPanel.style.display = 'none';
+                instruction.classList.remove('hidden');
+                window.scrollTo(0, 0);
+
+            } catch (e) {
+                alert("Error occurred: " + e.message);
+            } finally {
+                btn.innerHTML = '<i class="fas fa-save"></i> Save & Generate Image';
+                btn.disabled = false;
+            }
+        }
+
+        function editAgain() {
+            document.getElementById('resultImage').style.display = 'none';
+            document.getElementById('previewSection').style.display = 'block';
+            document.getElementById('inputPanel').style.display = 'block';
+            document.getElementById('saveInstruction').classList.add('hidden');
+        }
+
+        function resetForm() {
+            if(confirm('Clear all data?')) {
+                localStorage.removeItem('formDataV4');
+                location.reload();
+            }
+        }
+
+        // --- PHOTO HANDLING ---
+        function handlePhoto(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentPhotoData = e.target.result;
+                    const photoPreview = document.getElementById('photoPreview');
+                    const photoPlaceholder = document.getElementById('photoPlaceholder');
+                    
+                    photoPreview.src = e.target.result;
+                    photoPreview.classList.remove('hidden');
+                    photoPlaceholder.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // --- PRINT FUNCTION ---
+        function printForm() {
+            // First update all preview fields to ensure data is current
+            update();
+            
+            const inputPanel = document.getElementById('inputPanel');
+            const saveInstruction = document.getElementById('saveInstruction');
+            const previewSection = document.getElementById('previewSection');
+            const resultImage = document.getElementById('resultImage');
+            
+            // Hide input panel and show preview
+            inputPanel.style.display = 'none';
+            saveInstruction.classList.add('hidden');
+            resultImage.style.display = 'none';
+            previewSection.style.display = 'block';
+            
+            // Small delay to ensure DOM is updated before printing
+            setTimeout(() => {
+                window.print();
+                
+                // Restore after print
+                setTimeout(() => {
+                    inputPanel.style.display = 'block';
+                }, 300);
+            }, 100);
+        }
+
+        // --- DROPDOWN MENU ---
+        function toggleDropdown() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('show');
+        }
+
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('dropdownMenu');
+            if (!e.target.closest('.relative')) {
+                menu.classList.remove('show');
+            }
+        });
+
+        // --- MODALS ---
+        function openModal(id) {
+            document.getElementById(id).classList.add('show');
+            document.getElementById('dropdownMenu').classList.remove('show');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        function openRecordsModal() {
+            loadRecords();
+            openModal('recordsModal');
+        }
+
+        function openSettingsModal() {
+            openModal('settingsModal');
+        }
+
+        function openAboutModal() {
+            openModal('aboutModal');
+        }
+
+        // Close modal on outside click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal.id);
+            });
+        });
+
+        // --- RECORDS MANAGEMENT ---
+        function loadRecords() {
+            const records = JSON.parse(localStorage.getItem('admissionRecords')) || [];
+            const list = document.getElementById('recordsList');
+            const noRecords = document.getElementById('noRecords');
+            
+            if (records.length === 0) {
+                list.innerHTML = '';
+                noRecords.classList.remove('hidden');
+                return;
+            }
+            
+            noRecords.classList.add('hidden');
+            list.innerHTML = records.map((r, i) => `
+                <div class="record-item">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-gray-800">${r.name || 'No Name'}</h4>
+                            <p class="text-sm text-gray-500">Class: ${r.cls || '-'} | Father: ${r.father || '-'}</p>
+                            <p class="text-xs text-gray-400 mt-1"><i class="fas fa-calendar-alt"></i> ${r.createdAt || '-'}</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="viewRecord(${r.id})" class="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-200">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button onclick="printRecord(${r.id})" class="w-8 h-8 bg-green-100 text-green-600 rounded-lg flex items-center justify-center hover:bg-green-200">
+                                <i class="fas fa-print"></i>
+                            </button>
+                            <button onclick="deleteRecord(${r.id})" class="w-8 h-8 bg-red-100 text-red-600 rounded-lg flex items-center justify-center hover:bg-red-200">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewRecord(id) {
+            const records = JSON.parse(localStorage.getItem('admissionRecords')) || [];
+            const record = records.find(r => r.id === id);
+            if (!record) return;
+            
+            ids.forEach(field => {
+                const el = document.getElementById(field);
+                if(el) el.value = record[field] || '';
+            });
+            
+            if (record.photo) {
+                currentPhotoData = record.photo;
+                document.getElementById('photoPreview').src = record.photo;
+                document.getElementById('photoPreview').classList.remove('hidden');
+                document.getElementById('photoPlaceholder').classList.add('hidden');
+            }
+            
+            update();
+            closeModal('recordsModal');
+        }
+
+        function printRecord(id) {
+            viewRecord(id);
+            setTimeout(() => printForm(), 300);
+        }
+
+        function deleteRecord(id) {
+            if (!confirm('Delete this record?')) return;
+            
+            let records = JSON.parse(localStorage.getItem('admissionRecords')) || [];
+            records = records.filter(r => r.id !== id);
+            localStorage.setItem('admissionRecords', JSON.stringify(records));
+            loadRecords();
+        }
+
+        // --- SETTINGS ---
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('appSettings')) || { fontSize: 'medium', theme: 'blue' };
+            setFontSize(settings.fontSize, false);
+            setTheme(settings.theme, false);
+        }
+
+        function saveSettings(key, value) {
+            const settings = JSON.parse(localStorage.getItem('appSettings')) || {};
+            settings[key] = value;
+            localStorage.setItem('appSettings', JSON.stringify(settings));
+        }
+
+        function setFontSize(size, save = true) {
+            document.body.classList.remove('font-small', 'font-medium', 'font-large');
+            document.body.classList.add('font-' + size);
+            
+            document.querySelectorAll('[id^="font"]').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'bg-blue-50');
+            });
+            const activeBtn = document.getElementById('font' + size.charAt(0).toUpperCase() + size.slice(1));
+            if(activeBtn) {
+                activeBtn.classList.add('border-blue-500', 'bg-blue-50');
+            }
+            
+            if(save) saveSettings('fontSize', size);
+        }
+
+        function setTheme(theme, save = true) {
+            document.body.classList.remove('theme-blue', 'theme-green', 'theme-orange', 'theme-dark');
+            document.body.classList.add('theme-' + theme);
+            document.body.style.background = getComputedStyle(document.body).getPropertyValue('--bg-gradient');
+            
+            document.querySelectorAll('[id^="theme"]').forEach(btn => {
+                btn.classList.remove('border-white', 'border-4');
+                btn.classList.add('border-transparent');
+            });
+            const activeBtn = document.getElementById('theme' + theme.charAt(0).toUpperCase() + theme.slice(1));
+            if(activeBtn) {
+                activeBtn.classList.remove('border-transparent');
+                activeBtn.classList.add('border-white', 'border-4');
+            }
+            
+            if(save) saveSettings('theme', theme);
+        }
+
+        // --- PWA SERVICE WORKER REGISTRATION ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Create a simple service worker blob
+                const swCode = `
+                    const CACHE_NAME = 'alhuda-admission-v1';
+                    const urlsToCache = ['/'];
+                    
+                    self.addEventListener('install', event => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(cache => cache.addAll(urlsToCache))
+                        );
+                        self.skipWaiting();
+                    });
+                    
+                    self.addEventListener('fetch', event => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(response => response || fetch(event.request))
+                        );
+                    });
+                    
+                    self.addEventListener('activate', event => {
+                        event.waitUntil(
+                            caches.keys().then(cacheNames => {
+                                return Promise.all(
+                                    cacheNames.filter(name => name !== CACHE_NAME)
+                                        .map(name => caches.delete(name))
+                                );
+                            })
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then(reg => console.log('PWA: Service Worker registered'))
+                    .catch(err => console.log('PWA: SW registration failed'));
+            });
+        }
+
+        // --- PWA INSTALL PROMPT ---
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // Show install button if needed
+            console.log('PWA: Install prompt available');
+        });
+    </script>
+</body>
+</html>
