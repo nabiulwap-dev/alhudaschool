@@ -449,9 +449,10 @@
         }
         
         .school-logo-print {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             object-fit: contain;
+            flex-shrink: 0;
         }
         
         @media print {
@@ -511,16 +512,16 @@
             
             <!-- School Info (Fixed - Read Only) with Logo -->
             <div class="input-section bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-500 shadow-md">
-                <div class="flex items-center gap-4 py-4">
+                <div class="flex items-center justify-center gap-4 py-4">
                     <!-- Left Logo Only -->
                     <img src="school-logo.png" alt="School Logo" class="school-logo shadow-md">
                     
-                    <!-- School Name -->
-                    <div class="flex-1">
+                    <!-- School Name - Centered -->
+                    <div class="flex-1 text-center">
                         <h3 class="text-2xl font-black text-green-800 tracking-wider" style="font-family: 'Poppins', sans-serif; text-shadow: 2px 2px 4px rgba(0,0,0,0.15); text-transform: uppercase;">
                             AL-HUDA ISLAMIC EDUCATIONAL SOCIETY
                         </h3>
-                        <div class="w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-500 mt-2 rounded-full"></div>
+                        <div class="w-32 h-1 bg-gradient-to-r from-green-400 to-emerald-500 mt-2 rounded-full mx-auto"></div>
                         <p class="text-sm text-green-700 font-semibold mt-2">Nursery TO CLASS - IV</p>
                         <p class="text-xs text-gray-600 mt-1">Madanpur (Play Ground), Madhyamgram, North 24 Parganas, Kolkata - 700128</p>
                     </div>
@@ -699,17 +700,17 @@
                     
                     <!-- Header with Border and Logo -->
                     <div class="border-2 border-green-600 rounded-lg p-4 mb-3 bg-white">
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center justify-center gap-4">
                             <!-- Left Logo Only -->
                             <img src="school-logo.png" alt="School Logo" class="school-logo-print">
                             
-                            <!-- School Name -->
-                            <div class="flex-1">
-                                <h1 style="font-size: 26px; font-weight: 900; color: #166534; font-family: 'Poppins', sans-serif; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.15); text-transform: uppercase;">
+                            <!-- School Name - Centered -->
+                            <div class="flex-1 text-center">
+                                <h1 style="font-size: 22px; font-weight: 900; color: #166534; font-family: 'Poppins', sans-serif; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.1); text-transform: uppercase; white-space: nowrap;">
                                     AL-HUDA ISLAMIC EDUCATIONAL SOCIETY
                                 </h1>
                                 
-                                <div style="width: 120px; height: 3px; background: linear-gradient(90deg, #22c55e, #10b981); margin: 6px 0; border-radius: 2px;"></div>
+                                <div style="width: 100px; height: 3px; background: linear-gradient(90deg, #22c55e, #10b981); margin: 5px auto; border-radius: 2px;"></div>
                                 
                                 <p class="text-sm text-green-700 font-semibold">Nursery TO CLASS - IV</p>
                                 <p class="text-xs text-gray-600 mt-1">Madanpur (Play Ground), Madhyamgram, North 24 Parganas, Kolkata - 700128</p>
